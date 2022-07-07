@@ -1,4 +1,6 @@
-﻿using AppManagementDataUser.BusinessLayer.BusinessObject;
+﻿using AppManagementDataUser.BusinessLayer.BindingModel;
+using AppManagementDataUser.BusinessLayer.BusinessObject;
+using AppManagementDataUser.DataAccess.Context;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppManagementDataUser.API.Controllers
@@ -8,14 +10,19 @@ namespace AppManagementDataUser.API.Controllers
     public class UserProfileController : ControllerBase
     {
         private readonly BOUserProfile boUserProfile;
-        public UserProfileController()
+        public UserProfileController(DBContext db)
         {
-
+            boUserProfile = new(db);
         }
-        //[HttpPost]
-        //public async Task<IActionResult> AddNewUserProfile()
-        //{
+        [Route("Create")]
+        [HttpPost]
+        public async Task<IActionResult> Create(BMUserProfile requestData)
+        {
+            var finalResult = await boUserProfile.CreateDataUserProfile(requestData);
+            if (!finalResult.IsOk)
+                return BadRequest(finalResult);
 
-        //}
+            return Ok(finalResult);
+        }
     }
 }

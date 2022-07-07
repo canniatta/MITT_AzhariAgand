@@ -55,5 +55,15 @@ namespace AppManagementDataUser.API.Controllers
 
             return Ok(finalResult);
         }
+        [Route("Delete")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromQuery]int idSkill)
+        {
+            var finalResult = await boSkill.DeleteSkill(idSkill);
+            if (!finalResult.IsOk)
+                return BadRequest(finalResult);
+
+            return Ok(finalResult);
+        }
     }
 }

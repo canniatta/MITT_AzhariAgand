@@ -109,6 +109,27 @@ namespace AppManagementDataUser.BusinessLayer.ReferenceData
                 return (false, ex.Message);
             }
         }
+        public async ValueTask<(bool, int, string)> Delete(int idSkill)
+        {
+            try
+            {
+                Skill? resultData = await db.Skills.Where(x => x.SkillId == idSkill).FirstOrDefaultAsync();
+
+                if (resultData is null)
+                {
+                    return (false, idSkill, "Skill ID not found");
+                }
+
+                db.Remove(resultData);
+                await db.SaveChangesAsync();
+
+                return (true, idSkill, "SUCCESS DELETE");
+            }
+            catch (Exception ex)
+            {
+                return (false, 0, ex.Message);
+            }
+        }
         public async Task<List<Skill>> GetAllDataSkill()
         {
             List<Skill> resultData = await db.Skills.ToListAsync();

@@ -105,5 +105,36 @@ namespace AppManagementDataUser.BusinessLayer.BusinessObject
 
             return result;
         }
+        public async Task<ResultBase<BMRSkill>> DeleteSkill(int idSkill)
+        {
+            var result = new ResultBase<BMRSkill>()
+            {
+                Data = new()
+            };
+
+            var getdataskill = await boReference.GetSkillByID(idSkill);
+            if (getdataskill is null)
+            {
+                result.IsOk = false;
+                result.Message = responseCode.GetEnumDesc(ResponseCodeError.ResponseCode.errorList.MI004);
+                result.ResponseCode = ResponseCodeError.ResponseCode.errorList.MI004.ToString();
+                return result;
+            }
+
+            var processDeleteData = await boReference.Delete(idSkill);
+            if (!processDeleteData.Item1)
+            {
+                result.IsOk = false;
+                result.Message = processDeleteData.Item3;
+                result.ResponseCode = ResponseCodeError.ResponseCode.errorList.MI999.ToString();
+                return result;
+            }
+
+            result.Message = processDeleteData.Item3;
+            result.Data.SkillID = getdataskill.SkillId;
+            result.Data.SkillName = getdataskill.SkillName;
+
+            return result;
+        }
     }
 }

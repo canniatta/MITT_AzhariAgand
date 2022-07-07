@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppManagementDataUser.BusinessLayer.ResponseCodeError
 {
@@ -16,6 +11,8 @@ namespace AppManagementDataUser.BusinessLayer.ResponseCodeError
             [Description("Username already exist")] MI001 = 001,
             [Description("email already exist")] MI002 = 002,
             [Description("Skill not found")] MI003 = 003,
+            [Description("Skill ID not found")] MI004 = 004,
+            [Description("Api Key not correct")] MI005 = 005,
 
             [Description("Unhanlde exception")] MI999 = 999
         }

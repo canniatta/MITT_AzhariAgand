@@ -92,5 +92,10 @@ namespace AppManagementDataUser.BusinessLayer.ReferenceData
             List<Skill> resultData = await db.Skills.ToListAsync();
             return resultData;
         }
+        public async Task<Skill?> GetSkillByID(int idskill)
+        {
+            Skill? resultData = await db.Skills.FindAsync(idskill);
+            return resultData;
+        }
     }
 }

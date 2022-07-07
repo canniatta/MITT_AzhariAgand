@@ -42,6 +42,27 @@ namespace AppManagementDataUser.BusinessLayer.BusinessObject
 
             return result;
         }
+        public async Task<ResultBase<BMRSkill>> GetSkillByID(int idSkill)
+        {
+            var result = new ResultBase<BMRSkill>()
+            {
+                Data = new()
+            };
+
+            var getDataSkill = await boReference.GetSkillByID(idSkill);
+            if (getDataSkill is null)
+            {
+                result.IsOk = false;
+                result.Message = responseCode.GetEnumDesc(ResponseCodeError.ResponseCode.errorList.MI004);
+                result.ResponseCode = ResponseCodeError.ResponseCode.errorList.MI004.ToString();
+                return result;
+            }
+
+            result.Data.SkillID = getDataSkill.SkillId;
+            getDataSkill.SkillName = getDataSkill.SkillName;
+
+            return result;
+        }
         public async Task<ResultBase<BMRSkill>> InsertSkill(BMSkill requestData)
         {
             var result = new ResultBase<BMRSkill>()

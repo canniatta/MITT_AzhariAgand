@@ -34,5 +34,15 @@ namespace AppManagementDataUser.API.Controllers
 
             return Ok(finalResult);
         }
+        [Route("GetSkillByID")]
+        [HttpGet]
+        public async Task<IActionResult> GetSkillByID([FromQuery] int idSkill)
+        {
+            var finalResult = await boSkill.GetSkillByID(idSkill);
+            if (!finalResult.IsOk)
+                return BadRequest(finalResult);
+
+            return Ok(finalResult);
+        }
     }
 }

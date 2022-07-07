@@ -88,6 +88,25 @@ namespace AppManagementDataUser.BusinessLayer.ReferenceData
                 return (false, 0, ex.Message);
             }
         }
+        public async ValueTask<(bool, int, string)> InsertDataSkillLevel(BMSkillLevel dataSkill)
+        {
+            try
+            {
+                SkillLevel insertData = new()
+                {
+                    SkillLevelName = dataSkill.skillLevelName.Trim()
+                };
+
+                await db.AddAsync(insertData);
+                await db.SaveChangesAsync();
+
+                return (true, insertData.SkillLevelId, "SUCCESS");
+            }
+            catch (Exception ex)
+            {
+                return (false, 0, ex.Message);
+            }
+        }
         public async ValueTask<(bool, string)> UpdateDataSkill(BMRSkill dataSkill)
         {
             try
@@ -100,6 +119,27 @@ namespace AppManagementDataUser.BusinessLayer.ReferenceData
                 }
 
                 resultData.SkillName = dataSkill.SkillName;
+                await db.SaveChangesAsync();
+
+                return (true, "SUCCESS");
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+            }
+        }
+        public async ValueTask<(bool, string)> UpdateDataSkillLevel(BMRSkillLevel dataSkill)
+        {
+            try
+            {
+                SkillLevel? resultData = await db.SkillLevels.FindAsync(dataSkill.skillLevelID);
+
+                if (resultData is null)
+                {
+                    return (false, "Skill ID not found");
+                }
+
+                resultData.SkillLevelName = dataSkill.skillLevelName;
                 await db.SaveChangesAsync();
 
                 return (true, "SUCCESS");
@@ -130,14 +170,45 @@ namespace AppManagementDataUser.BusinessLayer.ReferenceData
                 return (false, 0, ex.Message);
             }
         }
+        public async ValueTask<(bool, int, string)> DeleteSkillLevel(int idSkilllevel)
+        {
+            try
+            {
+                SkillLevel? resultData = await db.SkillLevels.Where(x => x.SkillLevelId == idSkilllevel).FirstOrDefaultAsync();
+
+                if (resultData is null)
+                {
+                    return (false, idSkilllevel, "Skill ID not found");
+                }
+
+                db.Remove(resultData);
+                await db.SaveChangesAsync();
+
+                return (true, idSkilllevel, "SUCCESS DELETE");
+            }
+            catch (Exception ex)
+            {
+                return (false, 0, ex.Message);
+            }
+        }
         public async Task<List<Skill>> GetAllDataSkill()
         {
             List<Skill> resultData = await db.Skills.ToListAsync();
             return resultData;
         }
+        public async Task<List<SkillLevel>> GetAllDataSkillLevel()
+        {
+            List<SkillLevel> resultData = await db.SkillLevels.ToListAsync();
+            return resultData;
+        }
         public async Task<Skill?> GetSkillByID(int idskill)
         {
             Skill? resultData = await db.Skills.FindAsync(idskill);
+            return resultData;
+        }
+        public async Task<SkillLevel?> GetSkillLevelByID(int idskillLevel)
+        {
+            SkillLevel? resultData = await db.SkillLevels.FindAsync(idskillLevel);
             return resultData;
         }
     }

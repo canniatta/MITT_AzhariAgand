@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="BusinessObject\" />
+    <Folder Include="Interface\" />
+    <Folder Include="ReferenceData\" />
+  </ItemGroup>
+
 </Project>

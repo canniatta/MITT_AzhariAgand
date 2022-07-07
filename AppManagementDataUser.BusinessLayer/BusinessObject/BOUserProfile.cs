@@ -69,13 +69,17 @@ namespace AppManagementDataUser.BusinessLayer.BusinessObject
                     result.ResponseCode = ResponseCodeError.ResponseCode.errorList.MI001.ToString();
                     return result;
                 }
-                if (dataUserProfile.Email.Contains(requestData.email))
+                if (dataUserProfile is not null)
                 {
-                    result.IsOk = false;
-                    result.Message = responseCode.GetEnumDesc(ResponseCodeError.ResponseCode.errorList.MI002);
-                    result.ResponseCode = ResponseCodeError.ResponseCode.errorList.MI002.ToString();
-                    return result;
+                    if (dataUserProfile.Email.Contains(requestData.email))
+                    {
+                        result.IsOk = false;
+                        result.Message = responseCode.GetEnumDesc(ResponseCodeError.ResponseCode.errorList.MI002);
+                        result.ResponseCode = ResponseCodeError.ResponseCode.errorList.MI002.ToString();
+                        return result;
+                    }
                 }
+                
                 #endregion
 
                 var processInsert = await boReference.InsertDataUserProfile(requestData);

@@ -1,11 +1,12 @@
 ﻿using AppManagementDataUser.BusinessLayer.BindingModel;
 using AppManagementDataUser.BusinessLayer.BindingModelResult;
+using AppManagementDataUser.BusinessLayer.Interface;
 using AppManagementDataUser.DataAccess.Context;
 using AppManagementDataUser.DataAccess.Models;
 
 namespace AppManagementDataUser.BusinessLayer.BusinessObject
 {
-    public class BOUser
+    public class BOUser : IBOUser
     {
         private readonly ReferenceData.Reference boReference;
         private readonly ResponseCodeError.ResponseCode responseCode;

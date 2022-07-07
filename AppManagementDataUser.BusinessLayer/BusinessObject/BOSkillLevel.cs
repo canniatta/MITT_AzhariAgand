@@ -1,10 +1,11 @@
 ﻿using AppManagementDataUser.BusinessLayer.BindingModel;
 using AppManagementDataUser.BusinessLayer.BindingModelResult;
+using AppManagementDataUser.BusinessLayer.Interface;
 using AppManagementDataUser.DataAccess.Context;
 
 namespace AppManagementDataUser.BusinessLayer.BusinessObject
 {
-    public class BOSkillLevel
+    public class BOSkillLevel : IBOSkillLevel
     {
         private readonly ReferenceData.Reference boReference;
         private readonly ResponseCodeError.ResponseCode responseCode;

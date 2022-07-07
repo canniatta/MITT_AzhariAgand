@@ -39,7 +39,7 @@ namespace AppManagementDataUser.BusinessLayer.BusinessObject
                         bod = getDataUserProfile[i].Bod,
                         email = getDataUserProfile[i].Email,
                     };
-                    profileUserList.Add(dataUserProfile);
+                    result.Data.Add(dataUserProfile);
                 }
             }
             catch (Exception ex)

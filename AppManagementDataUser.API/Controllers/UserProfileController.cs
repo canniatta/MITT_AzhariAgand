@@ -1,6 +1,7 @@
 ﻿using AppManagementDataUser.BusinessLayer.BindingModel;
 using AppManagementDataUser.BusinessLayer.BusinessObject;
 using AppManagementDataUser.DataAccess.Context;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppManagementDataUser.API.Controllers
@@ -24,6 +25,7 @@ namespace AppManagementDataUser.API.Controllers
 
             return Ok(finalResult);
         }
+        [AllowAnonymous]
         [Route("GetUserProfile")]
         [HttpGet]
         public async Task<IActionResult> GetUserProfile()

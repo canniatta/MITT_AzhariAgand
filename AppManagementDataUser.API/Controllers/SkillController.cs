@@ -1,4 +1,5 @@
 ﻿using AppManagementDataUser.BusinessLayer.BindingModel;
+using AppManagementDataUser.BusinessLayer.BindingModelResult;
 using AppManagementDataUser.BusinessLayer.BusinessObject;
 using AppManagementDataUser.DataAccess.Context;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,16 @@ namespace AppManagementDataUser.API.Controllers
         public async Task<IActionResult> GetSkillByID([FromQuery] int idSkill)
         {
             var finalResult = await boSkill.GetSkillByID(idSkill);
+            if (!finalResult.IsOk)
+                return BadRequest(finalResult);
+
+            return Ok(finalResult);
+        }
+        [Route("Update")]
+        [HttpPut]
+        public async Task<IActionResult> Update(BMRSkill requestData)
+        {
+            var finalResult = await boSkill.UpdateSkill(requestData);
             if (!finalResult.IsOk)
                 return BadRequest(finalResult);
 

@@ -22,15 +22,6 @@ builder.Services.AddDbContext<DBContext>(option => option.UseSqlServer(builder.C
 IdentityModelEventSource.ShowPII = true;
 var signingKey = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 
-
-builder.Services.AddControllers(options =>
-{
-    var policy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-    options.Filters.Add(new AuthorizeFilter(policy));
-});
-
 #region jwt            
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -48,6 +39,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 #endregion
+
+//builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+    options.Filters.Add(new AuthorizeFilter(policy));
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(

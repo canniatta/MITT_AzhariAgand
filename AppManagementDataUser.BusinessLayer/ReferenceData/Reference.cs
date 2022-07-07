@@ -1,4 +1,5 @@
 ﻿using AppManagementDataUser.BusinessLayer.BindingModel;
+using AppManagementDataUser.BusinessLayer.BindingModelResult;
 using AppManagementDataUser.DataAccess.Context;
 using AppManagementDataUser.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
@@ -85,6 +86,27 @@ namespace AppManagementDataUser.BusinessLayer.ReferenceData
             catch (Exception ex)
             {
                 return (false, 0, ex.Message);
+            }
+        }
+        public async ValueTask<(bool, string)> UpdateDataSkill(BMRSkill dataSkill)
+        {
+            try
+            {
+                Skill? resultData = await db.Skills.FindAsync(dataSkill.SkillID);
+
+                if (resultData is null)
+                {
+                    return (false, "Skill ID not found");
+                }
+
+                resultData.SkillName = dataSkill.SkillName;
+                await db.SaveChangesAsync();
+
+                return (true, "SUCCESS");
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
             }
         }
         public async Task<List<Skill>> GetAllDataSkill()

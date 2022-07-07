@@ -84,5 +84,26 @@ namespace AppManagementDataUser.BusinessLayer.BusinessObject
 
             return result;
         }
+        public async Task<ResultBase<BMRSkill>> UpdateSkill(BMRSkill requestData)
+        {
+            var result = new ResultBase<BMRSkill>()
+            {
+                Data = new()
+            };
+
+            var processInsertData = await boReference.UpdateDataSkill(requestData);
+            if (!processInsertData.Item1)
+            {
+                result.IsOk = false;
+                result.Message = processInsertData.Item2;
+                result.ResponseCode = ResponseCodeError.ResponseCode.errorList.MI999.ToString();
+                return result;
+            }
+
+            result.Data.SkillID = requestData.SkillID;
+            result.Data.SkillName = requestData.SkillName;
+
+            return result;
+        }
     }
 }

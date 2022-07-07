@@ -1,3 +1,5 @@
+using AppManagementDataUser.DataAccess.Context;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(
                    .AllowAnyMethod()
                ));
 builder.Services.AddControllers();
+builder.Services.AddDbContext<DBContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("SQLConnection")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(

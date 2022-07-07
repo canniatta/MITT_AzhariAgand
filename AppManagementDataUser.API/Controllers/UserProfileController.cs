@@ -24,5 +24,15 @@ namespace AppManagementDataUser.API.Controllers
 
             return Ok(finalResult);
         }
+        [Route("GetUserProfile")]
+        [HttpGet]
+        public async Task<IActionResult> GetUserProfile()
+        {
+            var finalResult = await boUserProfile.GetDataUserProfile();
+            if (!finalResult.IsOk)
+                return BadRequest(finalResult);
+
+            return Ok(finalResult);
+        }
     }
 }

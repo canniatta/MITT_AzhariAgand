@@ -23,12 +23,15 @@ namespace AppManagementDataUser.BusinessLayer.BusinessObject
 
             try
             {
-                List<BMUserProfile> profileUserList = new();
                 var getDataUserProfile = await boReference.GetAllDataUserProfile();
                 if (getDataUserProfile.Count == 0)
                 {
-                    
+                    result.IsOk = false;
+                    result.Message = responseCode.GetEnumDesc(ResponseCodeError.ResponseCode.errorList.MI009);
+                    result.ResponseCode = ResponseCodeError.ResponseCode.errorList.MI009.ToString();
+                    return result;
                 }
+
                 for (int i = 0; i < getDataUserProfile.Count; i++)
                 {
                     BMUserProfile dataUserProfile = new()
@@ -44,11 +47,11 @@ namespace AppManagementDataUser.BusinessLayer.BusinessObject
             }
             catch (Exception ex)
             {
-
-                throw;
+                result.IsOk = false;
+                result.Message = ex.Message;
+                result.ResponseCode = ResponseCodeError.ResponseCode.errorList.MI999.ToString();
             }
 
-            
             return result;
         }
         public async Task<ResultBase<BMUserProfile>> CreateDataUserProfile(BMUserProfile requestData)

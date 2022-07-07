@@ -61,7 +61,17 @@ namespace AppManagementDataUser.BusinessLayer.BusinessObject
             try
             {
                 #region Validation Data
-                UserProfile? dataUserProfile = await boReference.GetDataUserProfileByUserName(requestData.username.Trim());
+
+                User? getdataUser = await boReference.GetDataUserByUsername(requestData.username.Trim());
+                if (getdataUser is null)
+                {
+                    result.IsOk = false;
+                    result.Message = responseCode.GetEnumDesc(ResponseCodeError.ResponseCode.errorList.MI008);
+                    result.ResponseCode = ResponseCodeError.ResponseCode.errorList.MI008.ToString();
+                    return result;
+                }
+
+                UserProfile ? dataUserProfile = await boReference.GetDataUserProfileByUserName(requestData.username.Trim());
                 if (dataUserProfile is not null)
                 {
                     result.IsOk = false;

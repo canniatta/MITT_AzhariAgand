@@ -73,7 +73,8 @@ namespace AppManagementDataUser.DataAccess.Context
 
             modelBuilder.Entity<UserProfile>(entity =>
             {
-                entity.HasNoKey();
+                //entity.HasNoKey();
+                entity.HasKey(e => e.Username);
 
                 entity.ToTable("UserProfile");
 

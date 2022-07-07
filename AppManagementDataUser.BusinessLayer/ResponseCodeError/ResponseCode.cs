@@ -15,6 +15,7 @@ namespace AppManagementDataUser.BusinessLayer.ResponseCodeError
             [Description("Api Key not correct")] MI005 = 005,
             [Description("Skill Level ID not found")] MI006 = 006,
             [Description("Skill Level not found")] MI007 = 007,
+            [Description("Username not found")] MI008 = 008,
 
             [Description("Unhanlde exception")] MI999 = 999
         }

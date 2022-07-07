@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppManagementDataUser.BusinessLayer\AppManagementDataUser.BusinessLayer.csproj" />
     <ProjectReference Include="..\AppManagementDataUser.DataAccess\AppManagementDataUser.DataAccess.csproj" />
   </ItemGroup>
 

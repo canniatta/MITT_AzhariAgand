@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BusinessObject\" />
-    <Folder Include="Interface\" />
-    <Folder Include="ReferenceData\" />
+    <ProjectReference Include="..\AppManagementDataUser.DataAccess\AppManagementDataUser.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
